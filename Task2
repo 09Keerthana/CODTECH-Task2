@@ -1,0 +1,88 @@
+import java.util.Scanner;
+public class GradeTracker {
+
+    public static String getLetterGrade(double average) {
+        int grade;
+        if (average >= 90) {
+            grade = 1;  
+        } else if (average >= 80) {
+            grade = 2;  
+        } else if (average >= 70) {
+            grade = 3;  
+        } else if (average >= 60) {
+            grade = 4;  
+        } else {
+            grade = 5;  
+        }
+        switch (grade) {
+            case 1:
+                return "A";
+            case 2:
+                return "B";
+            case 3:
+                return "C";
+            case 4:
+                return "D";
+            default:
+                return "F";
+        }
+    }
+
+    // Method to provide performance message based on the grade
+    public static String getPerformanceMessage(String grade) {
+        switch (grade) {
+            case "A":
+                return "Excellent performance!";
+            case "B":
+                return "Good job, keep it up!";
+            case "C":
+                return "You did okay, but there's room for improvement.";
+            case "D":
+                return "You need to work harder.";
+            case "F":
+                return "You failed. Better luck next time.";
+            default:
+                return "";
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        char moreStudents;
+
+        do {
+            System.out.print("Enter the student's name: ");
+            String name = scanner.nextLine();
+
+            System.out.print("Enter number of subjects: ");
+            int numSubjects = scanner.nextInt();
+
+            double total = 0.0;
+            for (int i = 1; i <= numSubjects; i++) {
+                System.out.print("Enter marks for subject " + i + ": ");
+                double marks = scanner.nextDouble();
+                total += marks;
+            }
+
+            // Calculate average grade
+            double average = total / numSubjects;
+
+            // Get letter grade using the modified method
+            String letterGrade = getLetterGrade(average);
+            System.out.println("Average Grade: " + average);
+            System.out.println("Letter Grade: " + letterGrade);
+
+            // Provide performance message
+            String performanceMessage = getPerformanceMessage(letterGrade);
+            System.out.println("Performance: " + performanceMessage);
+
+            // Ask if user wants to input another student
+            System.out.print("Do you want to enter details for another student? (Y/N): ");
+            moreStudents = scanner.next().charAt(0);
+            scanner.nextLine();  // Consume newline left-over
+
+        } while (moreStudents == 'Y' || moreStudents == 'y');
+
+        scanner.close();
+    }
+}
